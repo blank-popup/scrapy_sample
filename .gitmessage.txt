@@ -1,0 +1,44 @@
+# Title (max. 50 characters)
+# Summarize the changes concisely using the imperative mood.
+# Format: <type>: <subject>
+# Example: fix: fix login issue
+
+# Message Body (max. 72 characters per line)
+# Explain *what* was changed and *why* (not how).
+# Separate paragraphs with a blank line.
+
+# Example:
+#
+# Fix issue in the user login flow
+# by adjusting the authentication logic. The previous method
+# did not comply with the new security requirements.
+#
+# - Use bullet points to list changes
+# - Prefer "-" or "*", followed by a space
+# - Leave a blank line between idea groups
+
+# Related issue (optional)
+# Closes #123
+
+# Special Note (optional)
+# Example:
+# - Run `rake db:migrate`
+# - Check token in environment variables
+
+# Co-authorship (optional)
+# Co-authored-by: Full Name <email@example.com>
+
+# Recommended title types:
+# feat: New feature
+# fix: Bug fix
+# refactor: Code refactoring
+# style: Formatting changes without affecting logic
+# docs: Documentation updates
+# test: Add or improve tests
+# chore: General maintenance or auxiliary tasks
+# perf: Performance improvement
+# ci: Continuous integration configuration
+# build: Build process or dependency changes
+# revert: Revert a previous commit
+# wip: Work in progress
+# hack: Temporary workaround; avoid if possible
