@@ -1,0 +1,12 @@
+logging:
+  email:
+    mailhost:
+      - smtp.gmail.com
+      - 587
+    fromaddr: sender@example.com
+    toaddrs:
+      - receiver0@example.com
+      - receiver1@example.com
+    credentials:
+      - sender@example.com
+      - rtfgvbiojknmqazp
