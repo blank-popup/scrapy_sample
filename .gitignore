@@ -11,3 +11,4 @@ wheels/
 
 logs/
 scrapy_me.yaml
+docker/postgres_data/

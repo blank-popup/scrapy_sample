@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ahapostgre-db:
+    image: postgres:latest
+    container_name: ahapostgres
+    restart: always
+    ports:
+      - "19300:5432"
+    environment:
+      # PostgreSQL의 'root' 격인 슈퍼유저(postgres) 설정
+      - POSTGRES_PASSWORD=ahapassword
+      
+      # 시작 시 생성될 기본 데이터베이스 이름
+      - POSTGRES_DB=scraping_db
+      
+      # (참고) 기본 사용자명은 관례상 'postgres'를 사용하지만, 
+      # 다른 사용자명을 원하시면 아래 설정을 추가하세요.
+      - POSTGRES_USER=ahauser
+    volumes:
+      # PostgreSQL의 데이터베이스 파일을 ./postgres_data에 저장
+      - ./postgres_data:/var/lib/postgresql
