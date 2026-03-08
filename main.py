@@ -1,3 +1,5 @@
+import logging
+
 import click
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
@@ -6,12 +8,11 @@ from logit.config import setup_logging
 from naver.spiders.finance_naver import FinanceNaverSpider
 
 
-def main():
-    print("Hello from scrap!")
+logger = logging.getLogger(__name__)
 
 @click.command()
 @click.option('--logpath', default='logs/scrapy.log', help='Log file path')
-@click.option('--yamlpath', default='scrapy.yaml', help='YAML config path')
+@click.option('--yamlpath', default='scrapy.yaml', help='YAML path')
 def run_spider(logpath, yamlpath):
     # 1. Scrapy 설정 로드 및 커스텀 설정 적용
     settings = get_project_settings()
@@ -20,10 +21,20 @@ def run_spider(logpath, yamlpath):
     # 2. 기존에 만든 로깅 설정 호출
     setup_logging(logpath=logpath, yamlpath=yamlpath)
 
+    logger.info("Starting the Scrapy spider with custom settings...")
+    logger.info(f"Log path: {logpath}")
+    logger.info(f"YAML path: {yamlpath}")
+
+    # logpath를 Scrapy settings에 저장 (키 이름은 자유롭게 정하되 대문자 권장)
+    settings.set('AHA_LOGPATH', logpath)
+    # yamlpath를 Scrapy settings에 저장 (키 이름은 자유롭게 정하되 대문자 권장)
+    settings.set('AHA_YAMLPATH', yamlpath)
+
     # 3. 프로세스 생성 및 스파이더 실행
     process = CrawlerProcess(settings)
     process.crawl(FinanceNaverSpider)
     process.start() # 이 줄에서 크롤링이 시작되고 완료될 때까지 블로킹됩니다.
+
 
 if __name__ == "__main__":
     run_spider()

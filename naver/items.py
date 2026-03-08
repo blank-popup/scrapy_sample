@@ -6,7 +6,9 @@
 import scrapy
 
 
-class NaverItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class StockIndexItem(scrapy.Item):
+    index_name = scrapy.Field()    # 'KOSPI'
+    current_value = scrapy.Field() # 2560.15
+    # 추가 필드가 필요하다면 아래에 정의
+    # change_value = scrapy.Field()
+    # change_rate = scrapy.Field()

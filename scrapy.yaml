@@ -10,3 +10,10 @@ logging:
     credentials:
       - sender@example.com
       - rtfgvbiojknmqazp
+database:
+  postgres:
+    host: localhost
+    port: 19300
+    dbname: scraping_db
+    user: ahauser
+    password: ahapassword
