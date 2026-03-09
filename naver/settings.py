@@ -44,12 +44,18 @@ TELNETCONSOLE_ENABLED = False
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+SPIDER_MIDDLEWARES = {
+   "naver.middlewares.NaverSpiderMiddleware": 543,
+}
 #SPIDER_MIDDLEWARES = {
 #    "naver.middlewares.NaverSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
+DOWNLOADER_MIDDLEWARES = {
+   "naver.middlewares.NaverDownloaderMiddleware": 543,
+}
 #DOWNLOADER_MIDDLEWARES = {
 #    "naver.middlewares.NaverDownloaderMiddleware": 543,
 #}

@@ -9,8 +9,9 @@ class FinanceNaverSpider(scrapy.Spider):
     start_urls = ["https://finance.naver.com/"]
 
     def parse(self, response):
+        self.logger.error("$$$$$ FinanceNaverSpider.parse called")
         kospi = response.xpath('//*[@id="content"]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/a/span/span[1]/text()').get()
-        self.logger.info(f"KOSPI: {kospi}")
+        self.logger.error(f"$$$$$ KOSPI: {kospi}")
         if kospi:
             item = StockIndexItem()
             item['index_name'] = 'KOSPI'

@@ -3,12 +3,16 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import logging
+
 from scrapy import signals
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
 
+logger = logging.getLogger(__name__)
+    
 class NaverSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -16,12 +20,14 @@ class NaverSpiderMiddleware:
 
     @classmethod
     def from_crawler(cls, crawler):
+        logger.error(f"$$$$$ NaverSpiderMiddleware from_crawler called [{crawler}]")
         # This method is used by Scrapy to create your spiders.
         s = cls()
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
     def process_spider_input(self, response, spider):
+        logger.error(f"$$$$$ NaverSpiderMiddleware process_spider_input called [{response}]")
         # Called for each response that goes through the spider
         # middleware and into the spider.
 
@@ -29,6 +35,7 @@ class NaverSpiderMiddleware:
         return None
 
     def process_spider_output(self, response, result, spider):
+        logger.error(f"$$$$$ NaverSpiderMiddleware process_spider_output called [{response}] [{result}]")
         # Called with the results returned from the Spider, after
         # it has processed the response.
 
@@ -37,6 +44,7 @@ class NaverSpiderMiddleware:
             yield i
 
     def process_spider_exception(self, response, exception, spider):
+        logger.error(f"$$$$$ NaverSpiderMiddleware process_spider_exception called [{response}]")
         # Called when a spider or process_spider_input() method
         # (from other spider middleware) raises an exception.
 
@@ -44,12 +52,14 @@ class NaverSpiderMiddleware:
         pass
 
     async def process_start(self, start):
+        logger.error(f"$$$$$ NaverSpiderMiddleware process_start called [{start}]")
         # Called with an async iterator over the spider start() method or the
         # matching method of an earlier spider middleware.
         async for item_or_request in start:
             yield item_or_request
 
     def spider_opened(self, spider):
+        logger.error(f"$$$$$ NaverSpiderMiddleware spider_opened called [{spider}]")
         spider.logger.info("Spider opened: %s" % spider.name)
 
 
@@ -60,12 +70,14 @@ class NaverDownloaderMiddleware:
 
     @classmethod
     def from_crawler(cls, crawler):
+        logger.error(f"$$$$$ NaverDownloaderMiddleware from_crawler called [{crawler}]")
         # This method is used by Scrapy to create your spiders.
         s = cls()
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
     def process_request(self, request, spider):
+        logger.error(f"$$$$$ NaverDownloaderMiddleware process_request called [{request}]")
         # Called for each request that goes through the downloader
         # middleware.
 
@@ -78,6 +90,7 @@ class NaverDownloaderMiddleware:
         return None
 
     def process_response(self, request, response, spider):
+        logger.error(f"$$$$$ NaverDownloaderMiddleware process_response called [{response}]")
         # Called with the response returned from the downloader.
 
         # Must either;
@@ -87,6 +100,7 @@ class NaverDownloaderMiddleware:
         return response
 
     def process_exception(self, request, exception, spider):
+        logger.error(f"$$$$$ NaverDownloaderMiddleware process_exception called [{request}]")
         # Called when a download handler or a process_request()
         # (from other downloader middleware) raises an exception.
 
@@ -97,4 +111,5 @@ class NaverDownloaderMiddleware:
         pass
 
     def spider_opened(self, spider):
+        logger.error(f"$$$$$ NaverDownloaderMiddleware spider_opened called [{spider}]")
         spider.logger.info("Spider opened: %s" % spider.name)

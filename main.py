@@ -4,7 +4,7 @@ import click
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
-from logit.config import setup_logging
+from logit.config import setup_sync_logging
 from naver.spiders.finance_naver import FinanceNaverSpider
 
 
@@ -19,7 +19,9 @@ def run_spider(logpath, yamlpath):
     settings.set('LOG_ENABLED', False) # 직접 만든 로깅을 쓰므로 Scrapy 기본 로깅은 끔
 
     # 2. 기존에 만든 로깅 설정 호출
-    setup_logging(logpath=logpath, yamlpath=yamlpath)
+    setup_sync_logging(logpath=logpath, yamlpath=yamlpath)
+
+    logger.error(f"$$$$$ run_spider called with logpath: {logpath} and yamlpath: {yamlpath}")
 
     logger.info("Starting the Scrapy spider with custom settings...")
     logger.info(f"Log path: {logpath}")

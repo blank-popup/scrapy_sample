@@ -17,10 +17,12 @@ logger = logging.getLogger(__name__)
 
 class NaverPipeline:
     def __init__(self, dbpool):
+        logger.error(f"$$$$$ NaverPipeline __init__ called [{dbpool}]")
         self.dbpool = dbpool
 
     @classmethod
     def from_crawler(cls, crawler):
+        logger.error(f"$$$$$ NaverPipeline from_crawler called [{crawler}]")
         # 1. settings에서 YAML 경로 가져오기
         yamlpath = crawler.settings.get('AHA_YAMLPATH')
         
@@ -49,13 +51,14 @@ class NaverPipeline:
         return cls(dbpool)
 
     def process_item(self, item, spider):
-        logger.info(f"Processing item: {item}")
+        logger.error(f"$$$$$ NaverPipeline process_item called [{item}]")
         # runInteraction을 통해 비동기적으로 DB 작업 수행
         query = self.dbpool.runInteraction(self.insert_db, item)
         query.addErrback(self.handle_error, item, spider)
         return item
 
     def insert_db(self, cursor, item):
+        logger.error(f"$$$$$ NaverPipeline insert_db called [{item}]")
         # PostgreSQL 테이블 구조에 맞춘 SQL
         sql = """
             INSERT INTO stock_indices (index_name, current_value) 
@@ -68,8 +71,10 @@ class NaverPipeline:
         ))
 
     def handle_error(self, failure, item, spider):
+        logger.error(f"$$$$$ NaverPipeline handle_error called [{failure}] [{item}]")
         logger.error(f"DB Error: {failure}")
         logger.error(f"Failed to insert item: {item}")
 
     def close_spider(self, spider):
+        logger.error(f"$$$$$ NaverPipeline close_spider called [{spider}]")
         self.dbpool.close()
